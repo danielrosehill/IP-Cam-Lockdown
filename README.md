@@ -12,6 +12,8 @@ Each camera gets a dossier (what it is, how to identify it) and a forensics reco
 | [`devices/`](devices/) | One file per camera model: identity, firmware, ports, media |
 | [`forensics/`](forensics/) | Dated egress investigations: flows, owners, method, open questions |
 
+The playbook is also packaged as a reusable agent skill: `lockdown-iot-device` in the [Network Forensics plugin](https://github.com/danielrosehill/Network-Forensics-Plugin).
+
 ## Cameras so far
 
 | Model | Platform | Cloud path seen | Status |
