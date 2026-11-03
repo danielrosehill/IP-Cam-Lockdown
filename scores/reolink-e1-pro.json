@@ -1,0 +1,26 @@
+{
+  "device": "Reolink E1 Pro (fw v3.1.0.3149)",
+  "dossier": "devices/reolink-e1-pro.md",
+  "rubric_version": 1,
+  "assessed": "2026-11-03",
+  "criteria": {
+    "L1": {"status": "unknown", "evidence": "none", "note": "Not blocked yet. Home Assistant docs say Reolink cameras keep working with internet blocked (documented, not yet tested on this unit)", "source": "https://www.home-assistant.io/integrations/reolink/"},
+    "L2": {"status": "pass", "evidence": "documented", "note": "Reolink: without internet, local app access, live view, playback and SD recording work; app and Client can add a device by IP", "source": "https://support.reolink.com/hc/en-us/articles/360007170094-Can-Reolink-WiFi-Cameras-Work-Without-WiFi-or-Internet-Connection/"},
+    "L3": {"status": "partial", "evidence": "documented", "note": "Reolink advises internet for the phone and camera at first Wi-Fi setup; whether an account is required is not documented", "source": "https://support.reolink.com/hc/en-us/articles/360007170094-Can-Reolink-WiFi-Cameras-Work-Without-WiFi-or-Internet-Connection/"},
+    "L4": {"status": "unknown", "evidence": "none", "note": "Reolink documents a UID/P2P off switch for powered cameras in the desktop Client (Network > Advanced), not the app; not confirmed present on the E1 Pro, egress stop untested", "source": "https://support.reolink.com/hc/en-us/articles/4404480742425-How-to-Disable-Remote-Access-P2P-on-IP-Cameras-via-New-Reolink-Client/"},
+    "L5": {"status": "partial", "evidence": "tested", "note": "DNS from DHCP only (tested: ONVIF GetDNS and resolver log). NTP is pool.ntp.org; whether it accepts the router as NTP server is untested (one report says Reolink rejects IPs as NTP server, other model)", "source": "devices/reolink-e1-pro.md"},
+    "L6": {"status": "pass", "evidence": "tested", "note": "RTSP 554 (Digest, realm 'BC Streaming Media') and ONVIF 8000 on; HTTP/HTTPS closed on this unit", "source": "devices/reolink-e1-pro.md#listening-services"},
+    "L7": {"status": "unknown", "evidence": "none", "note": "Post-block behaviour pending", "source": ""},
+    "E1": {"status": "pass", "evidence": "inferred", "note": "Relay payload (1.6 MB): no H.264/HEVC NAL headers after start codes (101 start codes, mostly followed by 0x00 = framing), no Baichuan media headers, entropy 7.79. Assumed encrypted; not decoded", "source": "forensics/2026-11-03-reolink-e1-pro/findings.md#notes"},
+    "E2": {"status": "pass", "evidence": "inferred", "note": "No printable identifiers in any egress payload. BcUdp obfuscation not analysed: if it uses a fixed public key, the UID would be recoverable", "source": "forensics/2026-11-03-reolink-e1-pro/findings.md"},
+    "E3": {"status": "pass", "evidence": "tested", "note": "Only p2p.reolink.com and pool.ntp.org, both via the LAN resolver; relay IP handed out by the P2P server", "source": "forensics/2026-11-03-reolink-e1-pro/findings.md"},
+    "E4": {"status": "pass", "evidence": "tested", "note": "Oracle Cloud only (US registration, Sweden relay)", "source": "forensics/2026-11-03-reolink-e1-pro/findings.md"},
+    "E5": {"status": "pass", "evidence": "tested", "note": "Idle: one UDP keep-alive to the relay, ~75 bytes/s", "source": "forensics/2026-11-03-reolink-e1-pro/findings.md"},
+    "E6": {"status": "pass", "evidence": "tested", "note": "RTSP Digest, ONVIF, Baichuan 9000 (login required), P2P 2000/udp; no telnet, HTTP closed", "source": "devices/reolink-e1-pro.md#listening-services"},
+    "E7": {"status": "pass", "evidence": "documented", "note": "No CVE or Talos report found for the E1 Pro/E1 series (search 2026-11-03). Talos 2021-22 CVEs are for the RLC-410W and were patched; not carried over", "source": "https://blog.talosintelligence.com/vuln-spotlight-reolink-cameras/"},
+    "E8": {"status": "unknown", "evidence": "none", "note": "Reolink runs a firmware download center; not checked for this hardware ID", "source": "https://reolink.com/download-center/"}
+  },
+  "other_observations": [
+    "First setup needs internet per Reolink; disabling P2P is only in the desktop Client"
+  ]
+}

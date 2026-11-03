@@ -27,6 +27,11 @@ Relay packets start with the 4-byte magics `2a87cf20` / `2a87cf10` (little-endia
 
 ## Notes
 
-- Payload entropy 7.79 bits/byte over 1.6 MB, with 63 four-byte `00 00 00 01` sequences, far more than chance. *Assumed*: encrypted media with some cleartext framing or NAL headers. Not decoded.
+- **Media payload: no cleartext codec data found** (re-checked 2026-11-03). Entropy alone proves nothing, because compressed H.264 is high-entropy too, so the 1.6 MB sent to the relay was checked for markers:
+  - 101 `00 00 00 01` sequences (chance: ~0.0004). The byte after them is mostly `0x00` (64), then `0x01`, `0x20`, `0x10`. None are H.264 NAL headers (`0x67` SPS, `0x68` PPS, `0x65` IDR, `0x41` P-slice), so these are framing integers, not start codes.
+  - No Baichuan media headers (`00dc`, `01dc`, `05wb`). No printable strings of 8+ characters apart from random-looking runs.
+  - AAC sync `FF F1`: 31, about chance level (~25).
+  - *Inferred*: the media is encrypted. Not decoded. Compare the XM camera, where HEVC NAL headers and A-law silence are directly visible.
+- No identifiers in printable form in any egress payload. The BcUdp obfuscation was not analysed.
 - No plaintext HTTP at boot; no firmware check seen in the window.
 - Unlike the XM camera, blocking by DNS name (`p2p.reolink.com`) would likely cut new sessions, because it resolves through the LAN resolver. The existing relay flow is by IP, so a firewall block plus a state kill is still the reliable method.

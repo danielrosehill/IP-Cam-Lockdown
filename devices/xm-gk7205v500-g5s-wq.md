@@ -47,6 +47,10 @@ Unbranded Wi-Fi PTZ camera bought on AliExpress from **TPTEK Official Store**. E
 - NTP: manual, `time.windows.com`.
 - The camera's own account: the owner's account had silently changed at some point (the NVR's old `admin` login was first seen getting `401` on 2026-10-18; the working account is the one set in the phone app). *Assumed*: re-pairing or an app-side reset changed it.
 
+## Score
+
+Provisional **F (12.5/100)**, capped at D by cleartext media off the LAN. See [`scoring.md`](../scoring.md).
+
 ## References
 
 - SEC Consult, "Millions of Xiongmai video surveillance devices can be hacked via cloud feature (XMEye P2P Cloud)", 2018.

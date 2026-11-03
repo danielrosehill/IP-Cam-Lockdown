@@ -44,9 +44,14 @@ Also:
 1. Clear the camera's states (OPNsense: Diagnostics → States → filter → kill). Old sessions survive a new rule until they are killed.
 2. After ten minutes, the state table for the camera should show only LAN flows. The firewall log should show the rule-4 blocks: that log *is* the ongoing record of what it tries.
 3. The NVR still streams, and the app no longer connects off-LAN.
-4. Record the result and the date in the device's forensics folder.
+4. Repeat at 1 h and 24 h, and once more after power-cycling the camera while it is blocked. Some firmware waits on a cloud or NTP check before it starts streaming. Check RTSP, ONVIF, NVR recording continuity, the clock, and the vendor app on the LAN.
+5. Record it in `forensics/<date>-<model>/post-block.md`: what kept working, what broke, and what the camera keeps trying (firewall log by destination and rate). Plugin skill: `verify-iot-lockdown`.
 
-## 5. Keep it that way
+## 5. Score
+
+Rate it on the Local-Only Security Rubric (`scores/<device>.json`, tables in [`scoring.md`](scoring.md)). Score once after the captures (provisional), and again after the post-block test. Plugin skill: `score-device-security`.
+
+## 6. Keep it that way
 
 - Firmware updates are usually pulled from the cloud, so they stop. That is the trade-off; check the vendor site for a manual image only if there is a known fix.
 - Re-check after any router change (new VLAN, IPv6 enablement, rule reorder).

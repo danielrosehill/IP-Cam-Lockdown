@@ -1,0 +1,27 @@
+{
+  "device": "XM IPC_GK7205V500_G5S-WQ (TPTEK, IPCee)",
+  "dossier": "devices/xm-gk7205v500-g5s-wq.md",
+  "rubric_version": 1,
+  "assessed": "2026-11-03",
+  "criteria": {
+    "L1": {"status": "unknown", "evidence": "none", "note": "Not blocked yet. RTSP/ONVIF expected to keep working; post-block test pending", "source": ""},
+    "L2": {"status": "unknown", "evidence": "none", "note": "Whether IPCee reaches the camera on the LAN without the cloud is untested", "source": ""},
+    "L3": {"status": "unknown", "evidence": "none", "note": "Web UI exists (needs an ActiveX plug-in); offline setup untested", "source": ""},
+    "L4": {"status": "unknown", "evidence": "none", "note": "No cloud/P2P switch looked for yet", "source": ""},
+    "L5": {"status": "partial", "evidence": "tested", "note": "DNS fails: queries 1.1.1.1 directly and has 8.8.8.8 configured. NTP is a manual server setting (time.windows.com), so settable; setting it to the router not yet tried", "source": "devices/xm-gk7205v500-g5s-wq.md#configuration-found-on-the-device"},
+    "L6": {"status": "pass", "evidence": "tested", "note": "RTSP 554 (Digest) and ONVIF 8899 both on; Frigate/go2rtc pull works", "source": "devices/xm-gk7205v500-g5s-wq.md#media"},
+    "L7": {"status": "unknown", "evidence": "none", "note": "Post-block behaviour pending", "source": ""},
+    "E1": {"status": "fail", "evidence": "tested", "note": "Relay stream on UCloud TCP 6611 carries G.711 A-law audio and HEVC P-frames in the clear (1042 audio, 484 P-frame headers in 42 s); only I-frames appear scrambled", "source": "forensics/2026-11-03-xm-gk7205v500/capture.md"},
+    "E2": {"status": "fail", "evidence": "tested", "note": "Device serial / cloud ID in plain ASCII in every UDP 8765 keep-alive to Huawei SG (~13 s)", "source": "forensics/2026-11-03-xm-gk7205v500/capture.md"},
+    "E3": {"status": "fail", "evidence": "tested", "note": "Hard-coded resolver 1.1.1.1; 3 secu100.net names, everything else by hard-coded IP", "source": "forensics/2026-11-03-xm-gk7205v500/boot.md"},
+    "E4": {"status": "fail", "evidence": "tested", "note": "Huawei Cloud, Alibaba Cloud, UCloud, Akamai/Linode (plus ICMP to Google and 114DNS)", "source": "forensics/2026-11-03-xm-gk7205v500/boot.md"},
+    "E5": {"status": "pass", "evidence": "tested", "note": "Idle snapshots show keep-alives, control and one 443 session; no 6611 relay without the app open", "source": "forensics/2026-11-03-xm-gk7205v500/findings.md#open-questions"},
+    "E6": {"status": "fail", "evidence": "tested", "note": "Xiongmai DVRIP 34567/tcp and CS2-style PPPP 32100/udp open on the LAN; telnet closed", "source": "devices/xm-gk7205v500-g5s-wq.md#listening-services-lan-side"},
+    "E7": {"status": "unknown", "evidence": "none", "note": "XMEye cloud CVEs (CISA ICSA-18-282-06, CVE-2018-17915..17919) cover the platform family; not tested against this firmware, fix status unknown", "source": "https://www.cisa.gov/news-events/ics-advisories/icsa-18-282-06"},
+    "E8": {"status": "unknown", "evidence": "none", "note": "Unbranded board; no vendor firmware download looked for yet", "source": ""}
+  },
+  "other_observations": [
+    "ICMP online checks to 8.8.8.8 and 114.114.114.114 (China-first default)",
+    "Device account changed silently after app pairing (NVR login started returning 401)"
+  ]
+}
