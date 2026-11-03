@@ -1,6 +1,6 @@
 # Xiongmai (XM) GK7205V500 PTZ Wi-Fi camera, `IPC_GK7205V500_G5S-WQ`
 
-Unbranded indoor PTZ camera bought on AliExpress. Examined 2026-11-03 on an OPNsense-routed home LAN. Everything below was read off the device or the router unless marked *assumed*.
+Unbranded Wi-Fi PTZ camera bought on AliExpress from **TPTEK Official Store**. Examined 2026-11-03 on an OPNsense-routed home LAN. Everything below was read off the device or the router unless marked *assumed*.
 
 ## Identity
 
@@ -17,7 +17,9 @@ Unbranded indoor PTZ camera bought on AliExpress. Examined 2026-11-03 on an OPNs
 | ONVIF scope | `location/country/china`, `name/NVT`, `Profile/Streaming` | ONVIF `GetScopes` |
 | Wired interface | `eth0`, unconfigured, MAC `00:12:34:…` (placeholder MAC, unplugged), reports `192.168.1.10` | ONVIF `GetNetworkInterfaces` |
 | Web UI | `<title>Web Viewer`, wants an ActiveX/`VideoPlayToolSetup.exe` plug-in from `ocx.jftechws.com` | HTTP GET `/` |
-| Marketing name / AliExpress listing | *to fill in* | owner |
+| Marketing name | "8MP 4K IP Camera WiFi Outdoor Security Camera" (TPTEK Official Store) | AliExpress listing [1005007725569800](https://www.aliexpress.com/item/1005007725569800.html), read 2026-11-03 |
+| Listing variants | Sensor size (e.g. "5MP NO TF Card") × plug type; price shown ₪93.61 on 2026-11-03 | same |
+| Listing claims vs device | Listing says 8MP/4K, 4x digital zoom, human detection. The unit streams **2880x1616 (≈4.7 MP)**, so it matches the 5MP variant, not 8MP. *Assumed*: that is the variant ordered | RTSP probe |
 | Phone app | *to fill in* (XM devices use XMEye, iCSee or a rebrand) | owner |
 
 ## Media
