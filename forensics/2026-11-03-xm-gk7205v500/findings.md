@@ -35,7 +35,7 @@ See [`capture.md`](capture.md). In short: the app's live view goes **through UCl
 
 ## Open questions
 
-- DNS names queried (needs the capture; the camera's resolver choice hides them from the LAN DNS logs).
+- DNS names: answered by the boot capture, see [`boot.md`](boot.md). Three names, all under `secu100.net` (Xiongmai's XMEye cloud); most servers are reached by hard-coded IP.
 - Whether video leaves the house when nobody watches remotely: in the idle state snapshots, only keep-alives and the 443 session. No 6611 relay flow without the app open.
 - What goes over 443 to Huawei Cloud (~117 KB camera-side in one idle session; not inside the capture window).
 - Behaviour after the block: retry rate, whether local RTSP/ONVIF keep working (expected: yes).

@@ -18,7 +18,7 @@ The playbook is also packaged as a reusable agent skill: `lockdown-iot-device` i
 
 | Model | Platform | Cloud path seen | Status |
 |---|---|---|---|
-| [`IPC_GK7205V500_G5S-WQ`](devices/xm-gk7205v500-g5s-wq.md) (AliExpress, TPTEK Official Store, "8MP 4K IP Camera WiFi") | Xiongmai firmware on Goke GK7205V500, AltoBeam Wi-Fi | UDP 8765 + TCP 6510/6615/6502/443 to Huawei Cloud (SG/SA); hard-coded 1.1.1.1 DNS; ICMP to 8.8.8.8 and 114.114.114.114 ([findings](forensics/2026-11-03-xm-gk7205v500/findings.md)) | Capture in progress; not yet blocked |
+| [`IPC_GK7205V500_G5S-WQ`](devices/xm-gk7205v500-g5s-wq.md) (AliExpress, TPTEK Official Store, "8MP 4K IP Camera WiFi") | Xiongmai firmware on Goke GK7205V500, AltoBeam Wi-Fi | UDP 8765 + TCP 6510/6615/6502/443 to Huawei Cloud (SG/SA); `secu100.net` cloud (boot), live view relayed via UCloud TCP 6611 with cleartext audio; hard-coded 1.1.1.1 DNS; ICMP to 8.8.8.8 and 114.114.114.114 ([findings](forensics/2026-11-03-xm-gk7205v500/findings.md)) | Capture in progress; not yet blocked |
 
 ## What is not published
 
