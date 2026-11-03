@@ -5,7 +5,7 @@ Router: OPNsense 26.7. The camera is on a plain LAN with a DHCP reservation; not
 ## Method
 
 1. `pf` state table for the camera's IP: OPNsense API `POST /api/diagnostics/firewall/query_states` with `searchPhrase=<cam-ip>`. A snapshot of every live flow, with the NAT translation.
-2. Packet capture of camera↔internet only, on the LAN bridge: OPNsense API `/api/diagnostics/packet_capture/set` + `start/<id>`, host filter `<cam-ip> and not <lan>/24`, snaplen 1500. Started 2026-11-03; run while opening the app **off Wi-Fi (mobile data)** so the relay/P2P path is exercised. Results: `capture.md` *(pending)*.
+2. Packet capture of camera↔internet only, on the LAN bridge: OPNsense API `/api/diagnostics/packet_capture/set` + `start/<id>`, host filter `<cam-ip> and not <lan>/24`, snaplen 1500. Started 2026-11-03; run while opening the app **off Wi-Fi (mobile data)** so the relay/P2P path is exercised. Results: [`capture.md`](capture.md).
 3. `whois` on each remote IP.
 4. Device-side: ONVIF `GetDNS`, `GetNTP`, `GetNetworkInterfaces`; nmap TCP 1-10000 + chosen UDP ports.
 
@@ -29,9 +29,13 @@ All go out the main WAN with ordinary source NAT. No inbound state or port-forwa
 - **DNS blocking alone will not lock it down.** The camera uses `1.1.1.1` and `8.8.8.8` directly, and the servers it talks to are reachable by IP. Blocking must be by source (the camera), at the firewall.
 - The ICMP checks to 8.8.8.8 and 114.114.114.114 are how it decides it is "online". If they fail, *assumed*: it retries and stays local-only, which is the desired end state.
 
-## Open questions (fill from the capture)
+## Live view (from the capture)
+
+See [`capture.md`](capture.md). In short: the app's live view goes **through UCloud relays on TCP 6611** (Malaysia, Singapore, Hong Kong), not P2P. The **audio is plain G.711 A-law and P-frames are plain HEVC** inside XM's framing, and the idle keep-alive to Huawei SG carries the **device cloud ID in plain text**.
+
+## Open questions
 
 - DNS names queried (needs the capture; the camera's resolver choice hides them from the LAN DNS logs).
-- Whether video ever leaves the house when nobody watches remotely (expected: only keep-alives).
-- What goes over 443 (TLS SNI from the capture).
+- Whether video leaves the house when nobody watches remotely: in the idle state snapshots, only keep-alives and the 443 session. No 6611 relay flow without the app open.
+- What goes over 443 to Huawei Cloud (~117 KB camera-side in one idle session; not inside the capture window).
 - Behaviour after the block: retry rate, whether local RTSP/ONVIF keep working (expected: yes).

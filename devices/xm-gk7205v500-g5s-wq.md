@@ -20,7 +20,7 @@ Unbranded Wi-Fi PTZ camera bought on AliExpress from **TPTEK Official Store**. E
 | Marketing name | "8MP 4K IP Camera WiFi Outdoor Security Camera" (TPTEK Official Store) | AliExpress listing [1005007725569800](https://www.aliexpress.com/item/1005007725569800.html), read 2026-11-03 |
 | Listing variants | Sensor size (e.g. "5MP NO TF Card") × plug type; price shown ₪93.61 on 2026-11-03 | same |
 | Listing claims vs device | Listing says 8MP/4K, 4x digital zoom, human detection. The unit streams **2880x1616 (≈4.7 MP)**, so it matches the 5MP variant, not 8MP. *Assumed*: that is the variant ordered | RTSP probe |
-| Phone app | *to fill in* (XM devices use XMEye, iCSee or a rebrand) | owner |
+| Phone app | **IPCee** (ships with the camera). Android package ID *not yet identified*: no Play listing found by web search on 2026-11-03; read it off the phone with `adb shell pm list packages` | owner |
 
 ## Media
 

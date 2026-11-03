@@ -1,2 +1,2 @@
-captures/*.pcap
-captures/*.pcapng
+captures/*
+!captures/README.md
