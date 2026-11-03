@@ -47,6 +47,11 @@ Also:
 4. Repeat at 1 h and 24 h, and once more after power-cycling the camera while it is blocked. Some firmware waits on a cloud or NTP check before it starts streaming. Check RTSP, ONVIF, NVR recording continuity, the clock, and the vendor app on the LAN.
 5. Record it in `forensics/<date>-<model>/post-block.md`: what kept working, what broke, and what the camera keeps trying (firewall log by destination and rate). Plugin skill: `verify-iot-lockdown`.
 
+## 4b. Moving a blocked camera to an IoT VLAN
+
+- Xiongmai cameras can be moved to another SSID locally over DVRIP (tcp/34567) with `python-dvr` (`NetWork.Wifi`: `SSID`, `Keys`, and `HostIP`/`GateWay` as little-endian hex, e.g. `10.0.20.28` → `0x1C14000A`). No app or cloud needed. Check `NetWork.NetDHCP` first: Wi-Fi DHCP is often **off**, so the IP lives on the camera.
+- Put the block rule for the new address **ahead of** the VLAN's own internet-allow rule, add the new IP to the alias *before* the move, and **kill states for the new IP right after it appears**. In our move, ~20 cloud sessions (including an established relay) slipped through the VLAN's allow rule in the first moments, presumably before the alias table update took effect.
+
 ## 5. Score
 
 Rate it on the Local-Only Security Rubric (`scores/<device>.json`, tables in [`scoring.md`](scoring.md)). Score once after the captures (provisional), and again after the post-block test. Plugin skill: `score-device-security`.
