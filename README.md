@@ -12,6 +12,8 @@ Each camera gets a dossier (what it is, how to identify it) and a forensics reco
 | [`devices/`](devices/) | One file per camera model: identity, firmware, ports, media |
 | [`forensics/`](forensics/) | Dated egress investigations: flows, owners, method, open questions; `post-block.md` once blocked |
 | [`scoring.md`](scoring.md), [`scores/`](scores/) | Security rating per camera (Local-Only Security Rubric): can it run cut off, and what it exposes while connected |
+| [`docs/diagrams/`](docs/diagrams/) | Schematics (flow maps, live-view sequence, relay frame anatomy, scorecard), generated from the findings by `make_diagrams.py` (stdlib Python → SVG; PNG via Inkscape) |
+| [`docs/blog/`](docs/blog/) | Source and Contentful manifest of the write-up: [blog.danielrosehill.com/posts/aliexpress-ip-camera-cloud-traffic-forensics-iexd0z/](https://blog.danielrosehill.com/posts/aliexpress-ip-camera-cloud-traffic-forensics-iexd0z/) (2026-11-03) |
 
 ## Tooling: the Network Forensics plugin
 
